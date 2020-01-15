@@ -4,9 +4,12 @@
  * 
  */
 // =================================
+// 
 // function printLabel(labelledObj: {label: string}) {
 //   console.log(labelledObj.label);
 // }
+
+// 这里要求参数 labelledObj 对象中有一个名为label类型为string的属性 
 
 // let myObj = {
 //   size: 10,
@@ -43,7 +46,7 @@
 //     color: 'white',
 //     area: 100
 //   };
-//   // 如果这里是config.clor,会有错误提示
+//   // 如果这里是config.clor,会提示 SquareConfig 里面不包含clor
 //   // if (config.clor) {
 //   if (config.color) {
 //     newSquare.color = config.color;
@@ -54,9 +57,12 @@
 //   return newSquare;
 // }
 
-// let mySquare = createSquare({color: 'black'})
-// console.log(mySquare)
+// let mySquareCC = createSquare({color: 'black'});
+// console.log('--可选属性-- mySquareCC = ', mySquareCC);
 
+// 这里如果参数名错了，比如：{colour: 'black'}，那么系统就会报错。可以少，但是不能错
+// 如果我就是有一个这样的参数字段名，我确认自己没有传错，的确是要一个名为“colour”的参数字段，那要怎么办
+// 这要就要用到“额外的属性检查”：[propName: string]: any;后面会有介绍
 
 // =================================
 // 只读属性
@@ -99,6 +105,7 @@
 // }
 
 // let mySearch: SearchFunc;
+
 // mySearch = function(source: string, subString: string) {
 //   let result = source.search(subString);
 //   return result > -1;
@@ -109,6 +116,18 @@
 //   let result = src.search(sub);
 //   return result > -1;
 // }
+
+// 这里可以不用再在参数里面添加参数类型以及函数返回类型
+// 它会自动根据接口定义的函数类型去判断
+// mySearch = function(src, sub) {
+//   let result = src.search(sub);
+//   // return result; // 如果直接返回一个值，会提示这里需要一个boolean值
+//   return result > -1;
+// }
+
+// let mySearchRes01 = mySearch('xyz', 'yz');
+// let mySearchRes01 = mySearch(33334, '34'); // 这里第一个参数用的number，直接报错，与接口定义的参数对应不上
+// console.log('--函数类型 mySearchRes01--', mySearchRes01);
 
 // =================================
 // 可索引的类型
@@ -163,10 +182,10 @@
 //   constructor(h: number, m: number) {}
 // }
 //----------------------------------
-// interface ClockConstructor {
+// interface ClockConstructor { // 为构造函数所用，注意这里后面 clockInterface，基于这个新建对象
 //   new (hour: number, minute: number): ClockInterface;
 // }
-// interface ClockInterface {
+// interface ClockInterface { // 为实例方法所用
 //   tick(): void;
 // }
 
@@ -175,7 +194,6 @@
 // }
 
 // class DigitalClock implements ClockInterface {
-
 //   constructor(h: number, m: number){
 //     console.log("DigitalClock", h, m)
 //   }
@@ -263,18 +281,21 @@
  * 这意味着当你创建了一个接口继承了一个拥有私有或受保护的成员的类时，
  * 这个接口类型只能被这个类或其子类所实现（implement）。
  */
-// class Control {
-//   private state: any;
-// }
-// interface SelectableControl extends Control {
-//   select(): void;
-// }
-// class Button extends Control implements SelectableControl {
-//   select() {}
-// }
-// class TextBox extends Control {
-//   select() {}
-// }
+class Control {
+  private state: any;
+}
+interface SelectableControl extends Control {
+  select(): void;
+}
+class Button extends Control implements SelectableControl {
+  select() {}
+}
+class TextBox extends Control {
+  select() {}
+}
+let btn1 = new Button();
+let textbox1 = new TextBox();
+console.log('--Control--', btn1, textbox1)
 
 // // 报错
 // //  Type 'Image' is missing the following properties from type 'SelectableControl': select, state

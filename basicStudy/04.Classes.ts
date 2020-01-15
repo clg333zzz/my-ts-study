@@ -214,12 +214,14 @@
 //   readonly name: string;
 //   readonly numberOfLegs: number = 8;
 //   constructor(theName: string) {
-//     this.name = theName
-//     console.log(this.name)
+//     // this.name = theName
+//     this.name = 'ssss'
+//     console.log('--readonly property-- this.name = ', this.name)
 //   }
 // }
 // let dad = new Octopus("Man with the 8 strong legs");
 // dad.name = "Man with the 3-piece suit"; // Cannot assign to 'name' because it is a read-only property
+// 这里name属性是只读，不能再进行赋值操作
 
 //========================================================================
 
@@ -242,7 +244,7 @@
 /**
  * 存取器
  * 存取器要求你将编译器设置为输出ECMAScript 5或更高。 不支持降级到ECMAScript 3。 
- * 其次，只带有 get不带有 set的存取器自动被推断为 readonly。 
+ * 其次，只带有get而不带有set的存取器自动被推断为 readonly。 
  * 这在从代码生成 .d.ts文件时是有帮助的，因为利用这个属性的用户会看到不允许够改变它的值。
  */
 // let passcode = "secret passcode";
@@ -350,6 +352,9 @@
 //  class Greeter {
 //    static standardGreeting = "Hello, there";
 //    greeting!: string;
+//    constructor(message: string) {
+//      this.greeting = message;
+//    }
 //    greet() {
 //      if (this.greeting) {
 //        return "Hello, " + this.greeting;
@@ -359,11 +364,15 @@
 //    }
 //  }
 //  let greeter1: Greeter;
-//  greeter1 = new Greeter();
+//  greeter1 = new Greeter("greatwall");
+//  console.log(greeter1);
 //  console.log(greeter1.greet());
 
 //  let greeterMaker: typeof Greeter = Greeter
 //  greeterMaker.standardGreeting = "Hey there!";
+// 使用typeof Greeter，意思是取Greeter类的类型，而不是实例的类型。 
+// 或者更确切的说，”告诉我Greeter标识符的类型”，也就是构造函数的类型。 
+// 这个类型包含了类的所有静态成员和构造函数。
 
 //  let greeter2 = new greeterMaker();
 //  console.log(greeter2.greet())
