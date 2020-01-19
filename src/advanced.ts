@@ -36,5 +36,3 @@ interface Foo {
 let foo: Foo = {
   bar: 1
 }
-
-

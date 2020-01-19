@@ -5,7 +5,9 @@
 // import './class'
 // import './class-interface'
 // import './generics'
-import './advanced'
+// import './advanced'
+import './advanced02'
+import './advanced03'
 
 
 let hello: string = 'hello world';
