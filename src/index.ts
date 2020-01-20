@@ -8,7 +8,11 @@
 // import './part1/advanced'
 // import './part1/advanced02'
 // import './part1/advanced03'
-import './part1/advanced04'
+// import './part1/advanced04'
+
+// import './part2/es6/c'
+// import './part2/node/c.node'
+import './part2/libs/index'
 
 
 let hello: string = 'hello world';
