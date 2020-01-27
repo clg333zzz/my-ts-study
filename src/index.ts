@@ -18,3 +18,4 @@ import './part2/libs/index'
 let hello: string = 'hello world';
 
 document.querySelectorAll(".app")[0].textContent = hello;
+hello = 1
