@@ -1,6 +1,6 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-// const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
-const { CheckerPlugin } = require('awesome-typescript-loader')
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
+// const { CheckerPlugin } = require('awesome-typescript-loader')
 module.exports = {
     entry: './src/index.ts',
     output: {
@@ -14,8 +14,8 @@ module.exports = {
             {
                 test: /\.tsx?$/i,
                 use: [{
-                    // loader: 'ts-loader',
-                    loader: 'awesome-typescript-loader',
+                    loader: 'ts-loader',
+                    // loader: 'awesome-typescript-loader',
                     options: {
                         transpileOnly: true // 打包时仅编译，而不进行类型校验，这样打包速度会更快
                     }
@@ -28,7 +28,8 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: './src/tpl/index.html'
         }),
-        // new ForkTsCheckerWebpackPlugin(),
-        new CheckerPlugin()
+        // 上面开启了transpileOnly，我们这里使用fork-ts-checker-webpack-plugin来实现类型检查
+        new ForkTsCheckerWebpackPlugin(),
+        // new CheckerPlugin()
     ]
 }

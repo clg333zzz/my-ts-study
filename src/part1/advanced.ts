@@ -18,7 +18,6 @@ let aa = [1, null]
 // 我这里typescript是3.7.4版本，
 // 下面的event事件无法自动推断了，要加上类型，这里加上any类型
 window.onkeydown = (event: any) => {
-  // ts会根据 
   console.log(event.code);
   // console.log(event.button)
 }
@@ -30,9 +29,12 @@ window.onmousedown = function(mouseEvent: any) {
 interface Foo {
   bar: number
 }
-// let foo = {} as foo // 类型断言
+// let foo = {} as foo // 类型断言，注意这种方法会可能会遗漏foo.bar的声明，导致foo并没有按照接口来定义
 // foo.bar = 1
 
+// 这里还是尽量直接在定义时就加上Foo类型
 let foo: Foo = {
   bar: 1
 }
+
+// 类型断言不要滥用
